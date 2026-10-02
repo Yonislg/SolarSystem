@@ -17,3 +17,16 @@ class Body:
         self.position = position
         self.velocity = velocity
         self.mass = mass
+
+
+class Planet(Body):
+    def __init__(self,name,position,velocity,mass):
+        Body.__init__(self,name,position,velocity,mass)
+
+    def set_acceleration(self, value):
+        self.acceleration = value
+
+    def step(self,force_eq,integrator,dt):
+        self.set_acceleration(force_eq)
+        self.velocity = integrator(self.velocity,self.acceleration,dt)
+        self.position = integrator(self.position,self.velocity,dt)
